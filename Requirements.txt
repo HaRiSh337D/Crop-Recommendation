@@ -1,8 +1,7 @@
-scikit-learn
-numpy
+scikit-learn==1.0.2
+numpy==1.24.3
 pandas
 seaborn
 matplotlib
 streamlit
 flask
-pickle

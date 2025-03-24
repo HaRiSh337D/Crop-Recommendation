@@ -1,0 +1,44 @@
+name: Streamlit CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Run the pipeline on push to the main branch
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout code from GitHub
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    # Step 2: Set up Python environment
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    # Step 3: Install dependencies
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    # Step 4: Lint and Test (Optional - add test scripts if available)
+    - name: Run Tests
+      run: |
+        echo "No tests available. Skipping."
+
+    # Step 5: Deploy to Render (if using Render)
+    - name: Deploy to Render
+      env:
+        RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+        RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
+      run: |
+        curl -X POST "https://api.render.com/deploy/${{ secrets.RENDER_SERVICE_ID }}?api_key=${{ secrets.RENDER_API_KEY }}"
+
