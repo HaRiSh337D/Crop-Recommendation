@@ -3,5 +3,5 @@ numpy==1.24.3
 pandas
 seaborn
 matplotlib
-streamlit
 flask
+streamlit
