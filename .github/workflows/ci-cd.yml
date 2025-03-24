@@ -3,42 +3,42 @@ name: Streamlit CI/CD Pipeline
 on:
   push:
     branches:
-      - main  # Run the pipeline on push to the main branch
+      - main  # Trigger pipeline on push to main branch
   pull_request:
     branches:
-      - main
+      - main  # Trigger pipeline on PR to main
 
 jobs:
-  build-and-deploy:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-    # Step 1: Checkout code from GitHub
+    # Step 1: Checkout the code from GitHub
     - name: Checkout Code
       uses: actions/checkout@v3
 
-    # Step 2: Set up Python environment
+    # Step 2: Set up Python
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.10'
+        python-version: '3.10'  # Use Python 3.10 or later
 
     # Step 3: Install dependencies
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r Requirements.txt
+        pip install -r requirements.txt
 
-    # Step 4: Lint and Test (Optional - add test scripts if available)
+    # Step 4: Run Tests (Optional - can be added later)
     - name: Run Tests
       run: |
-        echo "No tests available. Skipping."
+        echo "No tests configured yet. Skipping."
 
-    # Step 5: Deploy to Render (if using Render)
+    # Step 5: Deploy to Render (Manual Trigger or Push to Main)
     - name: Deploy to Render
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       env:
         RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
         RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
       run: |
         curl -X POST "https://api.render.com/deploy/${{ secrets.RENDER_SERVICE_ID }}?api_key=${{ secrets.RENDER_API_KEY }}"
-

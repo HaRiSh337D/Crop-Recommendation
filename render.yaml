@@ -1,11 +1,10 @@
 services:
-  - name: Crop-Recommendation
+  - name: crop-system
     type: web
     runtime: python
     envVars:
       - key: PYTHON_VERSION
-        value: 3.10  # Set to 3.10 since your app uses Python 3.10
-
-    buildCommand: pip install -r Requirements.txt
+        value: 3.10
+    buildCommand: pip install -r requirements.txt
     startCommand: streamlit run app.py --server.port $PORT --server.headless true
     plan: free
