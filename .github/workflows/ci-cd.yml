@@ -73,7 +73,7 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        if [ -f Requirements.txt ]; then pip install -r Requirements.txt; fi
 
     # Step 4: Run Python Syntax Check
     - name: Run Python Syntax Check
