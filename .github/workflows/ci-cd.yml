@@ -44,43 +44,34 @@
 #         curl -X POST "https://api.render.com/deploy/${{ secrets.RENDER_SERVICE_ID }}?api_key=${{ secrets.RENDER_API_KEY }}"
 
 
-name: Streamlit CI Pipeline
+name: Crop Recommendation CI/CD
 
 on:
   push:
     branches:
-      - main  # Trigger CI on push to main branch
+      - main
   pull_request:
     branches:
-      - main  # Trigger CI on PR to main
+      - main
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    # Step 1: Checkout Code
     - name: Checkout Code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
 
-    # Step 2: Set up Python
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v2
       with:
-        python-version: '3.10'  # Use Python 3.10 or later
+        python-version: '3.10'
 
-    # Step 3: Install Dependencies
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install -r requirements.txt
 
-    # Step 4: Run Model Code
-    - name: Run Model Training
-      run: |
-        python model/Crop_Recommender.py
+    - name: Run Crop_Recommender.py
+      run: python model/Crop_Recommender.py
 
-    # Step 5: Run Streamlit Application Test (Optional)
-    - name: Check Streamlit App (Optional)
-      run: |
-        echo "Streamlit app can be launched manually for testing purposes."
