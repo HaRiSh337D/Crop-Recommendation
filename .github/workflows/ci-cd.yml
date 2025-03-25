@@ -76,6 +76,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         # Install Jupyter for running notebooks
         pip install jupyter
+        pip install scikit-learn==1.0.2
 
     # Step 4: Run Python Syntax Check
     - name: Run Python Syntax Check
