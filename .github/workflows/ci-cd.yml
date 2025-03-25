@@ -73,7 +73,7 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; else echo "No requirements.txt found"; fi
+        if [ -f Requirements.txt ]; then pip install -r Requirements.txt; else echo "No RSSequirements.txt found"; fi
 
     # Step 4: Run Syntax Check (Optional but Recommended)
     - name: Run Syntax Check
@@ -85,9 +85,10 @@ jobs:
       run: |
         python model/CropRecommender.py || echo "Crop Recommender script failed"
 
-    # Step 6: Check Model and Pickle Files (Optional)
+    # Step 6: Check Model and Pickle Files
     - name: Verify Model and Mappings
       run: |
+        ls -l model/
         if [ -f model/RF_classifier.pkl ] && [ -f model/Crop_Mappings.pkl ]; then
           echo "✅ Model and mappings generated successfully!"
         else
