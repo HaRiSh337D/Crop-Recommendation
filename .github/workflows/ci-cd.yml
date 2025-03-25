@@ -107,7 +107,7 @@
 #       run: |
 #         curl -X POST "https://api.render.com/deploy/${{ secrets.RENDER_SERVICE_ID }}?api_key=${{ secrets.RENDER_API_KEY }}"
 
-nname: Crop Recommendation CI Pipeline
+name: Crop Recommendation CI Pipeline
 
 on:
   push:
@@ -167,3 +167,5 @@ jobs:
 
       - name: Deploy to Vercel
         run: vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
+
+
