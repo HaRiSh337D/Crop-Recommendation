@@ -81,8 +81,18 @@ jobs:
     - name: Run Python Syntax Check
       run: |
         python -m compileall .
-
-    # Step 5: Validate Jupyter Notebook (Optional)
-    - name: Validate Crop_Recommender Notebook
+    
+    # Step: Debug File Path (Optional)
+    - name: List Directory Contents
       run: |
-        jupyter nbconvert --to notebook --execute Crop_Recommender.ipynb --output output.ipynb || echo "Jupyter Notebook execution failed"
+        ls -R
+
+# Step: Check for Notebook File
+    - name: Check for Notebook File
+      run: |
+        if [ -f "model/Crop_Recommender.ipynb" ]; then echo "Notebook found"; else echo "Notebook not found"; exit 1; fi
+
+    # Step: Run Jupyter Notebook Validation
+    - name: Run Jupyter Notebook
+      run: |
+        jupyter nbconvert --to notebook --execute model/Crop_Recommender.ipynb --output model/output.ipynb || echo "Jupyter Notebook execution failed"
