@@ -1,3 +1,4 @@
+import os
 # Required Libraries
 import pandas as pd
 import numpy as np
@@ -53,11 +54,19 @@ print("RF Test Recall score:", recall_score(y_test, y_pred_RF, average='weighted
 print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred_RF))
 print("Classification Report:\n", classification_report(y_test, y_pred_RF))
 
+# Check and create the directory if it doesn't exist
+os.makedirs("model", exist_ok=True)
+
+print("✅ Saving model to:", os.path.abspath("model/RF_classifier.pkl"))
+print("✅ Saving mappings to:", os.path.abspath("model/Crop_Mappings.pkl"))
+
 # Save Model and Mappings
+# Save the classifier model
 with open("model/RF_classifier.pkl", "wb") as model_file:
     pickle.dump(RF_classifier, model_file)
 
-with open("model/Crop_Mappings.pkl", "wb") as mapping_file:
-    pickle.dump(Crop_Mappings, mapping_file)
+# Save the label mappings
+with open("model/Crop_Mappings.pkl", "wb") as mappings_file:
+    pickle.dump(Crop_Mappings, mappings_file)
 
 print("✅ Model and mappings have been successfully saved!")
